@@ -1,0 +1,43 @@
+kind: workflow
+trigger:
+  kind: OnConversationStart
+  id: trigger_wf
+  actions:
+    - kind: InvokeAzureAgent
+      id: agent1
+      agent:
+        name: TriagingAgent
+      description: First agent in sequential workflow
+      conversationId: =System.ConversationId
+      input:
+        messages: =System.LastMessage
+      output:
+        messages: Local.LatestMessage
+        autoSend: true
+        responseObject: Local.LatestMessage
+    - kind: ConditionGroup
+      conditions:
+        - condition: =Coalesce(Local.LatestMessage.is_spam, true)
+          actions:
+            - kind: EndConversation
+              id: action-1764831436954
+          id: if-action-1764831307473-0
+      id: action-1764831307473
+      elseActions:
+        - kind: InvokeAzureAgent
+          id: action-1764831442470
+          agent:
+            name: mail-assistant-agent
+          input:
+            messages: =System.LastMessage
+          output:
+            autoSend: true
+    - kind: EndConversation
+      id: action-1764831549937
+id: ""
+name: spam-triage-workflow
+description: ""
+
+# Sticky Notes
+# STICKY_NOTE: {"id":"sticky_1761166557820_yn7ggfd41","text":"Create Spam Triaging agent with following instructions:\n\nYou are a spam detection assistant that identifies spam emails.\nAlways return JSON with fields is_spam (bool), reason (string), and email_content (string)\n\nInclude the original email content in email_content.","width":443,"height":168,"x":128.68984826321952,"y":-152.7956968465287}
+# STICKY_NOTE: {"id":"sticky_1765247428564_roib1iuj3","text":"Create Mail Assistant Agent with following instructions:\n\nYou are an email assistant that helps users draft professional responses to emails                \nYour input may be a JSON object that includes 'email_content'; base your reply on that content\nReturn JSON with a single field 'response' containing the drafted reply","width":426,"height":164,"x":1077.2,"y":247.6}
