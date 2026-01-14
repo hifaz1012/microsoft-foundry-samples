@@ -207,4 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 test_env/
+maf_env/
 apim.env
+.env
