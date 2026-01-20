@@ -2,4 +2,3 @@ azure-ai-projects==2.0.0b2
 openai 
 azure-identity 
 python-dotenv
-agent-framework --pre
