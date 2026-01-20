@@ -1,0 +1,4 @@
+agent-framework --pre
+openai 
+azure-identity 
+python-dotenv

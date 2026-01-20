@@ -2,24 +2,26 @@ import asyncio
 from agent_framework import Role
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import DefaultAzureCredential
-from agent_framework import SequentialBuilder
+from agent_framework import SequentialBuilder, ChatAgent, ChatMessage
 
 async def main() -> None:
     # 1) Create agents using AzureOpenAIChatClient
     chat_client = AzureOpenAIChatClient(credential=DefaultAzureCredential())
     
-    writer = chat_client.create_agent(
+    writer = ChatAgent(
         instructions=(
             "You are a concise copywriter. Provide a single, punchy marketing sentence based on the prompt."
         ),
         name="writer",
+        chat_client=chat_client
     )
 
-    reviewer = chat_client.create_agent(
+    reviewer = ChatAgent(
         instructions=(
             "You are a thoughtful reviewer. Give brief feedback on the previous assistant message."
         ),
         name="reviewer",
+        chat_client=chat_client
     )
 
     # 2) Build sequential workflow: writer -> reviewer
