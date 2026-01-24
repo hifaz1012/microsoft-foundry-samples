@@ -30,7 +30,7 @@ async def example_with_thread() -> None:
     async with (
         AzureCliCredential() as credential,
         AIProjectClient(endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"], credential=credential) as project_client,
-        AzureAIClient(project_client=project_client).create_agent(
+        AzureAIClient(project_client=project_client).as_agent(
             name="BasicAgent",
             instructions="You are a helpful agent.",
             tools=get_weather,

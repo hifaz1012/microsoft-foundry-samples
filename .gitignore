@@ -208,5 +208,6 @@ __marimo__/
 
 test_env/
 maf_env/
+maf_env1/
 apim.env
 .env

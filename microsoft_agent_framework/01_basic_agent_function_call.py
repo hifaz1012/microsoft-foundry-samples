@@ -31,7 +31,7 @@ async def agent_tool_example() -> None:
     # authentication option.
     async with (
         AzureCliCredential() as credential,
-        AzureAIClient(credential=credential).create_agent(
+        AzureAIClient(credential=credential).as_agent(
             name="BasicWeatherAgent",
             instructions="You are a helpful weather agent.",
             tools=get_weather,

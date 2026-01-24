@@ -3,7 +3,7 @@
 import asyncio
 from typing import Any
 
-from agent_framework import AgentProtocol, AgentRunResponse, AgentThread, ChatMessage, HostedMCPTool
+from agent_framework import AgentProtocol, AgentRunUpdateEvent, AgentThread, ChatMessage, HostedMCPTool
 from agent_framework.azure import AzureAIClient
 from azure.identity.aio import AzureCliCredential
 
@@ -14,7 +14,7 @@ This sample demonstrates integrating hosted Model Context Protocol (MCP) tools w
 """
 
 
-async def handle_approvals_without_thread(query: str, agent: "AgentProtocol") -> AgentRunResponse:
+async def handle_approvals_without_thread(query: str, agent: "AgentProtocol") -> AgentRunUpdateEvent:
     """When we don't have a thread, we need to ensure we return with the input, approval request and approval."""
 
     result = await agent.run(query, store=False)
@@ -35,7 +35,7 @@ async def handle_approvals_without_thread(query: str, agent: "AgentProtocol") ->
     return result
 
 
-async def handle_approvals_with_thread(query: str, agent: "AgentProtocol", thread: "AgentThread") -> AgentRunResponse:
+async def handle_approvals_with_thread(query: str, agent: "AgentProtocol", thread: "AgentThread") -> AgentRunUpdateEvent:
     """Here we let the thread deal with the previous responses, and we just rerun with the approval."""
 
     result = await agent.run(query, thread=thread)
@@ -64,7 +64,7 @@ async def run_hosted_mcp_without_approval() -> None:
     # authentication option.
     async with (
         AzureCliCredential() as credential,
-        AzureAIClient(credential=credential).create_agent(
+        AzureAIClient(credential=credential).as_agent(
             name="MyLearnDocsAgent",
             instructions="You are a helpful assistant that can help with Microsoft documentation questions.",
             tools=HostedMCPTool(
@@ -89,7 +89,7 @@ async def run_hosted_mcp_with_approval_and_thread() -> None:
     # authentication option.
     async with (
         AzureCliCredential() as credential,
-        AzureAIClient(credential=credential).create_agent(
+        AzureAIClient(credential=credential).as_agent(
             name="MyApiSpecsAgent",
             instructions="You are a helpful agent that can use MCP tools to assist users.",
             tools=HostedMCPTool(

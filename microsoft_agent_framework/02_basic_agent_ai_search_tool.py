@@ -23,7 +23,7 @@ load_dotenv(".env")
 async def main() -> None:
     async with (
         AzureCliCredential() as credential,
-        AzureAIClient(credential=credential).create_agent(
+        AzureAIClient(credential=credential).as_agent(
             name="MySearchAgent",
             instructions="""You are a helpful assistant. You must always provide citations for
             answers using the tool and render them as: `[message_idx:search_idx†source]`.""",

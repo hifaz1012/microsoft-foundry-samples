@@ -51,7 +51,7 @@ async def main() -> None:
                 break
 
         # 1. Create Azure AI agent with the search tool
-        azure_ai_agent = await agents_client.create_agent(
+        azure_ai_agent = await agents_client.as_agent(
             model=os.environ["AZURE_AI_MODEL_DEPLOYMENT_NAME"],
             name="FundAssetSearchAgent",
             instructions=(

@@ -3,6 +3,9 @@ from agent_framework import Role
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import DefaultAzureCredential
 from agent_framework import SequentialBuilder, ChatAgent, ChatMessage
+from dotenv import load_dotenv
+
+load_dotenv(".env")
 
 async def main() -> None:
     # 1) Create agents using AzureOpenAIChatClient
