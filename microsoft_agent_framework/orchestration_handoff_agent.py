@@ -266,37 +266,5 @@ async def main() -> None:
         events = await workflow.send_responses(responses)
         pending_requests = _handle_events(events)
 
-    """
-    Sample Output:
-
-    [Starting workflow with initial user message...]
-
-    - User: Hello, I need assistance with my recent purchase.
-    - triage_agent: Could you please provide more details about the issue you're experiencing with your recent purchase? This will help me route you to the appropriate specialist.
-
-    [Workflow Status] IDLE_WITH_PENDING_REQUESTS
-
-    - User: My order 1234 arrived damaged and the packaging was destroyed. I'd like to return it.
-    - triage_agent: I've directed your request to our return agent, who will assist you with returning the damaged order. Thank you for your patience!
-    - return_agent: The return for your order 1234 has been successfully initiated. You will receive return instructions via email shortly. If you have any other questions or need further assistance, feel free to ask!
-
-    [Workflow Status] IDLE_WITH_PENDING_REQUESTS
-
-    - User: Thanks for resolving this.
-
-    === Final Conversation Snapshot ===
-    - user: Hello, I need assistance with my recent purchase.
-    - triage_agent: Could you please provide more details about the issue you're experiencing with your recent purchase? This will help me route you to the appropriate specialist.
-    - user: My order 1234 arrived damaged and the packaging was destroyed. I'd like to return it.
-    - triage_agent: I've directed your request to our return agent, who will assist you with returning the damaged order. Thank you for your patience!
-    - return_agent: The return for your order 1234 has been successfully initiated. You will receive return instructions via email shortly. If you have any other questions or need further assistance, feel free to ask!
-    - user: Thanks for resolving this.
-    - triage_agent: You're welcome! If you have any more questions or need assistance in the future, feel free to reach out. Have a great day!
-    ===================================
-
-    [Workflow Status] IDLE
-    """  # noqa: E501
-
-
 if __name__ == "__main__":
     asyncio.run(main())

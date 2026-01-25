@@ -200,7 +200,7 @@ Watch how they all work together in a real conversation!
     async with (
         AzureCliCredential() as credential,
         AIProjectClient(endpoint=os.environ["AZURE_AI_PROJECT_ENDPOINT"], credential=credential) as project_client,
-        AzureAIClient(project_client=project_client).create_agent(
+        AzureAIClient(project_client=project_client).as_agent(
             name="MiddlewareDemoAgent",
             instructions="You are a helpful agent.",
             tools=get_weather,
